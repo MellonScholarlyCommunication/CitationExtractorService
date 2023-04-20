@@ -1,0 +1,10 @@
+componentsjs-error-state.json
+in/**
+err/**
+out/**
+dist/**
+components/**
+node_modules/**
+biblio.db
+cache.db
+local/*

@@ -1,0 +1,22 @@
+{
+  "name": "oai-bridge-processor",
+  "version": "0.0.1",
+  "description": "A OAI-PMH to Event Notifications bridge processor",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "npm run build:ts",
+    "build:ts": "npm exec tsc"
+  },
+  "author": "Patrick Hochstenbach <Patrick.Hochstenbach@UGent.be>",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/n3": "^1.10.4",
+    "typescript": "^5.0.4"
+  },
+  "dependencies": {
+    "@xmldom/xmldom": "^0.8.7",
+    "n3": "^1.16.4",
+    "xmldom": "^0.6.0",
+    "xpath": "^0.0.32"
+  }
+}
