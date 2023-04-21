@@ -1,5 +1,5 @@
 {
-  "name": "oai-bridge-processor",
+  "name": "oai-bridge-orchestrator",
   "version": "0.0.1",
   "description": "A OAI-PMH to Event Notifications bridge processor",
   "main": "dist/index.js",

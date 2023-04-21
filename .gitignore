@@ -7,4 +7,4 @@ components/**
 node_modules/**
 biblio.db
 cache.db
-local/*
+data/*
