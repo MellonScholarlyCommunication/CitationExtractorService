@@ -1,9 +1,11 @@
 .DS_Store
 componentsjs-error-state.json
+pre/**
 in/**
 err/**
 out/**
 dist/**
+solid/**
 components/**
 node_modules/**
 biblio.db

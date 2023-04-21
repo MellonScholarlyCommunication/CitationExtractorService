@@ -1,0 +1,29 @@
+@prefix ex:   <http://example.org/> .
+@prefix as:   <https://www.w3.org/ns/activitystreams#> .
+@prefix sorg: <https://schema.org/>.
+@prefix pol:  <https://www.example.org/ns/policy#> .
+@prefix fno:  <https://w3id.org/function/ontology#> .
+@prefix string: <http://www.w3.org/2000/10/swap/string#> .
+@prefix log: <http://www.w3.org/2000/10/swap/log#> .
+@prefix list: <http://www.w3.org/2000/10/swap/list#> .
+
+{
+    # pol:mainSubject defines the top level identifier of the notification
+    [ pol:mainSubject ?id ] .
+
+    ?id a as:Announce .
+    ?id as:object ?object .
+    ?object as:url ?url .
+    ?url as:mediaType "application/pdf" .
+}
+=>
+{
+    # When the conditions above hold, the I want a policy executed
+    # that sends out a LDN notification to the COAR demo inbox 
+    # with the mathching sorg:AboutPage as as:object
+    ex:MyExtractCitations pol:policy [
+        a fno:Execution ;
+        fno:executes ex:extractCitations ;
+        ex:url ?url 
+    ] .
+}.
