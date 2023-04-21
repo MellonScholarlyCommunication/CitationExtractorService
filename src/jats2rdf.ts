@@ -20,8 +20,8 @@ let doc = new DOMParser().parseFromString(xml);
 main(doc);
 
 async function main(doc: Document) : Promise<void> {
-    await parse_citation(doc,store);
-    await parse_doc(doc,store);
+    await parse_citations(doc,store);
+    await parse_mentions(doc,store);
     let rdf = await store2str(store);
     console.log(rdf);
 }
@@ -40,7 +40,7 @@ async function store2str(store: N3.Store) : Promise<string> {
     });
 }
 
-async function parse_doc(doc : Document, store: N3.Store) : Promise<void> {
+async function parse_mentions(doc : Document, store: N3.Store) : Promise<void> {
     let str = "";
 
     for (let i = 0 ; i < doc.childNodes.length ; i++) {
@@ -78,7 +78,7 @@ function parse_child(node: Node) : string {
     }
 }
 
-async function parse_citation(doc : Document, store: N3.Store) : Promise<void> {
+async function parse_citations(doc : Document, store: N3.Store) : Promise<void> {
     let nodes = xpath.select('/article/back/ref-list//ref/mixed-citation',doc);
 
     if (nodes.length == 0) {
@@ -98,12 +98,20 @@ async function parse_citation(doc : Document, store: N3.Store) : Promise<void> {
             if (n2.nodeType === n2.TEXT_NODE) {
                 let str = n2.toString();
 
-                citations.push(stringParser(str));
+                if (str?.match(/.*http\S+.*/)) {
+                    let citation = str.replace(/.*(http\S+).*/g,"$1")
+                                   .replace(/\.$/,'');
+                    citations.push(stringParser(citation));
+                }
             }
             else {
                 let str = n2.firstChild?.toString();
 
-                citations.push(stringParser(str));
+                if (str?.match(/.*http\S+.*/)) {
+                    let citation = str.replace(/.*(http\S+).*/g,"$1")
+                                   .replace(/\.$/,'');
+                    citations.push(stringParser(citation));
+                }
             }
         }
 
@@ -118,23 +126,20 @@ async function citations2rdf(citations: string[], store: N3.Store) : Promise<voi
         const DataFactory = N3.DataFactory;
         const namedNode = DataFactory.namedNode;
         const defaultGraph = DataFactory.defaultGraph;
- 
-        citations.forEach( (str) => {
+
+        const uniqueCitations = [...new Set<string>(citations)];
+
+        uniqueCitations.filter( (str:string) => validURL(str)).forEach( (str) => {
             if (!str) {
                 return;
             }
 
-            if (str?.match(/.*http\S+.*/)) {
-                let citation = str.replace(/.*(http\S+).*/g,"$1")
-                        .replace(/\.$/,'');
-
-                store.addQuad(
-                    namedNode(url ? url : file),
-                    namedNode('http://purl.org/ontology/bibo/cites'),
-                    namedNode(citation),
-                    defaultGraph()
-                );
-            }
+            store.addQuad(
+                namedNode(url ? url : file),
+                namedNode('http://purl.org/ontology/bibo/cites'),
+                namedNode(str),
+                defaultGraph()
+            );
         });
 
         resolve();
@@ -148,7 +153,9 @@ async function mentions2rdf(mentions: string[], store: N3.Store) : Promise<void>
         const namedNode = DataFactory.namedNode;
         const defaultGraph = DataFactory.defaultGraph;
  
-        mentions.forEach( (str) => {
+        const uniqueMentions = [...new Set<string>(mentions)];
+
+        uniqueMentions.filter( (str:string) => validURL(str) ).forEach( (str: string) => {
             if (!str) {
                 return;
             }
@@ -163,6 +170,19 @@ async function mentions2rdf(mentions: string[], store: N3.Store) : Promise<void>
 
         resolve();
     });
+}
+
+function validURL(str: string) : boolean {
+    var pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
+      '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
+      '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+      '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
+      '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+      '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
+
+    let valid = !!pattern.test(str);
+
+    return valid;
 }
 
 function stringParser(str: string | undefined) {
