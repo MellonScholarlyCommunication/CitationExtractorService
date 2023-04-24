@@ -14,10 +14,14 @@ if (! file ) {
 
 const store = new N3.Store();
 
-let xml = fs.readFileSync(file, 'utf8');
-let doc = new DOMParser().parseFromString(xml);
-
-main(doc);
+try {
+    let xml = fs.readFileSync(file, 'utf8');
+    let doc = new DOMParser().parseFromString(xml);
+    main(doc);
+}
+catch (e) {
+    console.error(`Failed to parse ${file}`);
+}
 
 async function main(doc: Document) : Promise<void> {
     await parse_citations(doc,store);
