@@ -38,7 +38,9 @@
       },
       {
         "@id": "http://example.org/extractCitations",
-        "@type": "ExtractCitationsPlugin"
+        "@type": "ExtractCitationsPlugin",
+        "citation_parser": "bin/pdf2citations.sh" ,
+        "outDir": "in"
       }
     ]
 }

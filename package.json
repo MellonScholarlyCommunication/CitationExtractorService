@@ -17,8 +17,9 @@
     "build:components": "componentsjs-generator -s dist -r oaior83",
     "prepare": "npm run build",
     "watch": "./bin/watch.sh",
-    "extract": "npx orch --info --keep --in pre --out in rules/extractCitations.n3",
-    "extract:pol": "npx pol --info --keep --in in --out out"
+    "extract": "npx orch --info --keep --in pre/in --out pre/out rules/extractCitations.n3",
+    "extract:pol": "npx pol --info --keep --in pre/out",
+    "extract:pol-demo": "npx pol --info --keep --single data/demo.ttl"
   },
   "keywords": [
     "oai-pmh",
