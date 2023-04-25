@@ -1,0 +1,36 @@
+<urn:uuid:f45d1f5c-8af3-44a5-8c5d-1c1e404a3f8d> a <https://www.w3.org/ns/activitystreams#Announce>;
+    <https://www.w3.org/ns/activitystreams#actor> <http://patrickhochstenbach.net/profile/card#me>;
+    <https://www.w3.org/ns/activitystreams#object> <https://biblio.ugent.be/publication/8737465>;
+    <https://www.w3.org/ns/activitystreams#origin> <http://patrickhochstenbach.net/orchestrator/profile/card#me>;
+    <https://www.w3.org/ns/activitystreams#target> <http://localhost:3000/profile/card#me>.
+<http://patrickhochstenbach.net/profile/card#me> a <https://www.w3.org/ns/activitystreams#Person>;
+    <https://www.w3.org/ns/activitystreams#name> "Patrick Hochstenbach".
+<https://biblio.ugent.be/publication/8737465> a <https://schema.org/AboutPage>;
+    <https://dbpedia.org/ontology/isPeerReviewed> true;
+    <https://schema.org/affiliation> <https://biblio.ugent.be/organization/RE23>;
+    <https://schema.org/creator> <https://orcid.org/0000-0001-9554-8789>, <https://orcid.org/0000-0002-7677-5094>, <https://orcid.org/0000-0002-4491-6374>;
+    <https://schema.org/datePublished> "2021";
+    <https://www.w3.org/ns/activitystreams#summary> "The European Crime Prevention Network : position and relevance for policy and practice";
+    <https://www.w3.org/ns/activitystreams#url> <file:///data/Notifications_in_Value_Adding_Networks.pdf>.
+<http://patrickhochstenbach.net/orchestrator/profile/card#me> a <https://www.w3.org/ns/activitystreams#Service>;
+    <https://www.w3.org/ns/activitystreams#name> "Pat's Koreografeye Orchestrator Demo".
+<http://localhost:3000/profile/card#me> a <https://www.w3.org/ns/activitystreams#Person>;
+    <https://www.w3.org/ns/activitystreams#name> "Freddy Test".
+<file:///data/Notifications_in_Value_Adding_Networks.pdf> a <https://www.w3.org/ns/activitystreams#Article>, <https://schema.org/ScholarlyArticle>;
+    <http://purl.org/dc/terms/accessRights> "open";
+    <https://www.w3.org/ns/activitystreams#mediaType> "application/pdf".
+_:b2_sk_0 a <https://w3id.org/function/ontology#Execution>;
+    <https://w3id.org/function/ontology#executes> <http://example.org/extractCitations>;
+    <http://example.org/url> <file:///data/Notifications_in_Value_Adding_Networks.pdf>.
+_:b2_sk_1 a <https://w3id.org/function/ontology#Execution>;
+    <https://w3id.org/function/ontology#executes> <http://example.org/inboxLocator>;
+    <http://example.org/predicate> <http://purl.org/ontology/bibo/mentions>.
+_:b2_sk_2 a <https://w3id.org/function/ontology#Execution>;
+    <https://w3id.org/function/ontology#executes> <http://example.org/serializeAs>;
+    <http://example.org/path> <out/demo-in.ttl>.
+_:b2_e_n3_MINUS_0_1 <https://www.example.org/ns/policy#mainSubject> <urn:uuid:f45d1f5c-8af3-44a5-8c5d-1c1e404a3f8d>.
+_:b2_e_n3_MINUS_1_1 <https://www.example.org/ns/policy#origin> <file:///var/folders/g8/czx2gjfs3_bbvvk1hjlcsj9m0000gn/T/data/demo-in.ttl>.
+<http://example.org/MyExtractCitations> <https://www.example.org/ns/policy#policy> _:b2_sk_0.
+<http://example.org/MyMentionInboxLocator> <https://www.example.org/ns/policy#policy> _:b2_sk_1.
+<http://example.org/MyWriteMainStore> <https://www.example.org/ns/policy#policy> _:b2_sk_2.
+

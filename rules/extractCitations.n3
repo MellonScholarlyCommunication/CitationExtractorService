@@ -6,6 +6,7 @@
 @prefix string: <http://www.w3.org/2000/10/swap/string#> .
 @prefix log: <http://www.w3.org/2000/10/swap/log#> .
 @prefix list: <http://www.w3.org/2000/10/swap/list#> .
+@prefix bibo: <http://purl.org/ontology/bibo/> .
 
 {
     # pol:mainSubject defines the top level identifier of the notification
@@ -34,8 +35,15 @@
         ex:url ?url 
     ] .
 
+    # Locate the inboxes for the bibo:mention
+    ex:MyMentionInboxLocator pol:policy [
+        a fno:Execution ;
+        fno:executes ex:inboxLocator ;
+        ex:predicate bibo:mentions
+    ] .
+
     # Write the main store to a file
-    ex:WriteMainStore pol:policy [
+    ex:MyWriteMainStore pol:policy [
         a fno:Execution ;
         fno:executes ex:serializeAs ;
         ex:path ?outUrl 

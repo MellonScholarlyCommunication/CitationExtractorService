@@ -45,6 +45,11 @@
       {
         "@id": "http://example.org/serializeAs",
         "@type": "SerializeAsPlugin"
+      },
+      {
+        "@id": "http://example.org/inboxLocator",
+        "@type": "FakeInboxLocator",
+        "fakeBaseUrl": "http://localhost:3000/fake"
       }
     ]
 }
