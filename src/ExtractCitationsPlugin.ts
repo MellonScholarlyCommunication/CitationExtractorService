@@ -1,21 +1,17 @@
-import * as fs from 'fs';
 import * as N3 from 'n3';
 import { spawn } from 'node:child_process';
 import {
     type IPolicyType,
     PolicyPlugin,
-    parseStringAsN3Store ,
-    rdfTransformStore
+    parseStringAsN3Store 
 } from 'koreografeye';
 
 export class ExtractCitationsPlugin extends PolicyPlugin {
     citation_parser: string;
-    outDir : string;
 
-    constructor(citation_parser: string, outDir: string) {
+    constructor(citation_parser: string) {
         super();
         this.citation_parser = citation_parser;
-        this.outDir = outDir;
     }
 
     public async execute (mainStore: N3.Store, _policyStore: N3.Store, policy: IPolicyType) : Promise<boolean> {
@@ -23,9 +19,9 @@ export class ExtractCitationsPlugin extends PolicyPlugin {
         return new Promise<boolean>( (resolve,_) => {
             const origin = policy.origin;
 
-            this.logger.info(`exctacting citations for ${origin}`);
+            this.logger.info(`extracting citations for ${origin}`);
 
-            const url  = policy.args['http://example.org/url']?.value;
+            const url  = policy.args['http://example.org/url']?.value.replace(/^file:\/\/\//,'');
 
             if (url === undefined) {
                 this.logger.error(`no url in the policy`);
@@ -52,6 +48,7 @@ export class ExtractCitationsPlugin extends PolicyPlugin {
                 this.logger.debug(resultData);
                 
                 if (! resultData || resultData.length == 0) {
+                    this.logger.error(`${this.citation_parser} returned no data `)
                     resolve(false);
                     return;
                 }
@@ -69,14 +66,6 @@ export class ExtractCitationsPlugin extends PolicyPlugin {
                     }, null, null, null, null);
 
                     this.logger.info(`found ${counter} citation triples`);
-
-                    const outFile = this.outDir + '/' + origin.replaceAll(/^.*\//g,'');
-
-                    this.logger.info(`creating ${outFile}`);
-
-                    const rdf = await rdfTransformStore(mainStore, 'text/turtle');
-
-                    fs.writeFileSync(outFile,rdf);
                 } 
                 catch (e) {
                     this.logger.error(`failed to parse citation output`);

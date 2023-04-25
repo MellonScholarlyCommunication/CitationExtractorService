@@ -7,7 +7,8 @@
     "@graph": [
       {
         "@id": "urn:koreografeye:reasonerInstance",
-        "@type": "EyeJsReasoner",
+        "@type": "EyeReasoner",
+        "eye": "/usr/local/bin/eye",
         "args": [ 
           "--quiet" , 
           "--nope" , 
@@ -39,8 +40,11 @@
       {
         "@id": "http://example.org/extractCitations",
         "@type": "ExtractCitationsPlugin",
-        "citation_parser": "bin/pdf2citations.sh" ,
-        "outDir": "in"
+        "citation_parser": "bin/pdf2citations.sh" 
+      },
+      {
+        "@id": "http://example.org/serializeAs",
+        "@type": "SerializeAsPlugin"
       }
     ]
 }

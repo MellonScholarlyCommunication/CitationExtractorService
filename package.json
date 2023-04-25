@@ -18,8 +18,9 @@
     "prepare": "npm run build",
     "watch": "./bin/watch.sh",
     "extract": "npx orch --info --keep --in pre/in --out pre/out rules/extractCitations.n3",
+    "extract:demo": "npx orch --keep --single data/demo-in.ttl rules/extractCitations.n3 | tee data/demo-out.ttl ",
     "extract:pol": "npx pol --info --keep --in pre/out",
-    "extract:pol-demo": "npx pol --info --keep --single data/demo.ttl"
+    "extract:pol-demo": "npx pol --info --keep --single data/demo-out.ttl"
   },
   "keywords": [
     "oai-pmh",
