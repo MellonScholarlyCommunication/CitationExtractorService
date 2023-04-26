@@ -49,6 +49,10 @@ export class ExtractCitationsPlugin extends PolicyPlugin {
                 resultData += data;
             });
 
+            citations.stderr.on('data', (data) => {
+                this.logger.info(''+data);
+            });
+
             citations.on('close', async (code) => {
                 if (code != 0) {
                     this.logger.error(`${this.citation_parser} returned an error`);
@@ -72,8 +76,19 @@ export class ExtractCitationsPlugin extends PolicyPlugin {
                     let counter = 0;
                     cstore.forEach( (quad) => {
                         counter++;
-                        this.logger.debug(quad);
-                        mainStore.addQuad(quad);
+                        const bn = N3.DataFactory.blankNode();
+                        mainStore.addQuad(
+                            bn,
+                            N3.DataFactory.namedNode('https://www.w3.org/ns/activitystreams#url'),
+                            quad.subject,
+                            quad.graph
+                        );
+                        mainStore.addQuad(
+                            bn,
+                            quad.predicate,
+                            quad.object,
+                            quad.graph
+                        );
                     }, null, null, null, null);
 
                     this.logger.info(`found ${counter} citation triples`);

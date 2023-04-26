@@ -1,7 +1,7 @@
 {
-  "name": "oai-bridge-orchestrator",
+  "name": "citation-extractor-service",
   "version": "0.0.1",
-  "description": "A OAI-PMH to Event Notifications orchestrator",
+  "description": "A citation extractor service node",
   "lsd:module": true,
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -16,13 +16,17 @@
     "build:ts": "npm exec tsc",
     "build:components": "componentsjs-generator -s dist -r oaior83",
     "prepare": "npm run build",
-    "watch": "./bin/watch.sh",
-    "extract": "npx orch --info --keep --in pre/in --out pre/out rules/extractCitations.n3",
-    "extract:demo": "npx orch --keep --single data/demo-in.ttl rules/extractCitations.n3  > data/demo-out.ttl ",
-    "extract:pol": "npx pol --info --keep --in pre/out",
-    "extract:pol-demo": "npx pol --info --keep --single data/demo-out.ttl",
-    "orch": "npx orch --info --keep --in in --out out rules/sendCitationNotification.n3",
-    "pol": "npx pol --info --keep --in out"
+    
+    "solid": "./bin/solid.sh",
+    "bridge:demo": "./bin/bridge_demo.sh",
+    "extract:prepare": "npx orch --info --in solid/inbox --out pre rules/extractCitations.n3",
+    "extract:prepare-demo": "npx orch --keep --single data/demo-in.ttl rules/extractCitations.n3  > data/demo-out.ttl ",
+    "extract:run": "npx pol --info --in pre",
+    "extract:run-demo": "npx pol --info --keep --single data/demo-out.ttl",
+    "send:prepare": "npx orch --info --in in --out out rules/biblio/sendCitationNotification.n3",
+    "send:run": "npx pol --info --in out",
+    "clean": "rm pre/*",
+    "clean:real": "rm pre/* ; rm in/* ; rm out/*"
   },
   "keywords": [
     "oai-pmh",

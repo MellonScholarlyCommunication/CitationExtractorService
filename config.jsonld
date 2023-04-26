@@ -2,7 +2,7 @@
     "@context": [
       "https://linkedsoftwaredependencies.org/bundles/npm/componentsjs/^5.0.0/components/context.jsonld",
       "https://linkedsoftwaredependencies.org/bundles/npm/koreografeye/^0.0.0/components/context.jsonld",
-      "https://linkedsoftwaredependencies.org/bundles/npm/oai-bridge-orchestrator/^0.0.0/components/context.jsonld"
+      "https://linkedsoftwaredependencies.org/bundles/npm/citation-extractor-service/^0.0.0/components/context.jsonld"
     ],
     "@graph": [
       {
@@ -14,20 +14,6 @@
           "--nope" , 
           "--pass"
         ]
-      },
-      {
-        "@id": "http://example.org/debugPlugin",
-        "@type": "DemoPlugin",
-        "showMainStore" : true,
-        "showPolicyStore" : true,
-        "showParameters" : true 
-      },
-      {
-        "@id": "http://example.org/demoPlugin",
-        "@type": "DemoPlugin",
-        "showMainStore" : false,
-        "showPolicyStore" : false ,
-        "showParameters" : true
       },
       {
         "@id": "http://example.org/sendNotification",

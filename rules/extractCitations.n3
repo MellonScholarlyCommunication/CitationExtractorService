@@ -7,6 +7,7 @@
 @prefix log: <http://www.w3.org/2000/10/swap/log#> .
 @prefix list: <http://www.w3.org/2000/10/swap/list#> .
 @prefix bibo: <http://purl.org/ontology/bibo/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
 
 {
     # pol:mainSubject defines the top level identifier of the notification
@@ -19,9 +20,11 @@
     ?id as:object ?object .
     ?object as:url ?url .
     ?url as:mediaType "application/pdf" .
+    ?url dcterms:accessRights "open" .
 
     ?origin log:uri ?origin_str .
-    ( ?origin_str "^.*/" "in/" ) string:replace ?outPath .
+    ( ?origin_str "^.*/" "in/" ) string:replace ?outTmp .
+    ( ?outTmp "\\.\\w+$" ".ttl" ) string:replace ?outPath . 
     ?outUrl log:uri ?outPath .
 }
 =>

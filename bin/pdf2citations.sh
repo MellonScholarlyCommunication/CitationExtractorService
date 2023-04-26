@@ -3,6 +3,7 @@
 CERMINE=lib/cermine-impl-1.13-jar-with-dependencies.jar
 TIMEOUT=30
 URL=$1
+MAXFILESIZE=4000000
 
 if [ "$URL" == "" ]; then
   echo "usage: $0 url"
@@ -36,10 +37,17 @@ trap cleanup EXIT
 # Main code ...
 
 if [[ ${URL} =~ ^http ]]; then
-  wget --output-document=${WORK_DIR}/workfile.pdf ${URL}
+  wget --quiet --output-document=${WORK_DIR}/workfile.pdf ${URL}
 else
   FILE=${URL/file:\/\/\/}
   cp ${FILE} ${WORK_DIR}/workfile.pdf
+fi
+
+actualsize=$(wc -c < ${WORK_DIR}/workfile.pdf)
+
+if [ $actualsize -ge $MAXFILESIZE ]; then
+  verbose "${URL} is over ${MAXFILESIZE} bytes (${actualsize})"
+  exit 2
 fi
 
 java -cp ${CERMINE} pl.edu.icm.cermine.ContentExtractor \

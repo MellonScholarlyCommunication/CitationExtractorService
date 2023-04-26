@@ -46,8 +46,17 @@ export class MockExtractCitationsPlugin extends PolicyPlugin {
             this.logger.info(`processing ${url} (${file})`);
 
             this.mockMentions.forEach( (mention) => {
+                const bn = N3.DataFactory.blankNode();
+               
                 mainStore.addQuad(
+                    bn,
+                    N3.DataFactory.namedNode('https://www.w3.org/ns/activitystreams#url'),
                     N3.DataFactory.namedNode(url),
+                    N3.DataFactory.defaultGraph()
+                );
+
+                mainStore.addQuad(
+                    bn,
                     N3.DataFactory.namedNode('http://purl.org/ontology/bibo/mentions'),
                     N3.DataFactory.namedNode(mention),
                     N3.DataFactory.defaultGraph()
@@ -55,8 +64,17 @@ export class MockExtractCitationsPlugin extends PolicyPlugin {
             });
 
             this.mockCitations.forEach( (citation) => {
+                const bn = N3.DataFactory.blankNode();
+               
                 mainStore.addQuad(
+                    bn,
+                    N3.DataFactory.namedNode('https://www.w3.org/ns/activitystreams#url'),
                     N3.DataFactory.namedNode(url),
+                    N3.DataFactory.defaultGraph()
+                );
+
+                mainStore.addQuad(
+                    bn,
                     N3.DataFactory.namedNode('http://purl.org/ontology/bibo/cites'),
                     N3.DataFactory.namedNode(citation),
                     N3.DataFactory.defaultGraph()

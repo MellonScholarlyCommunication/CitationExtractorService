@@ -1,6 +1,1 @@
-jats2spas.xsl - https://www.ncbi.nlm.nih.gov/books/NBK100491/
 cermime - https://github.com/CeON/CERMINE
-
-https://github.com/ncbi/niso-jats/tree/master/publishing/1.2d1
-http://jats.nlm.nih.gov/archiving/1.0/JATS-archivearticle1.dtd 
-http://jats.nlm.nih.gov/archiving/1.0/JATS-archivecustom-modules1.ent

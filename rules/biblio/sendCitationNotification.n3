@@ -23,9 +23,11 @@
     ?object as:url ?url .
 
     # This url should have citations
-    ?url bibo:cites ?citation .
+    ?citationNode 
+        as:url ?url ;
+        bibo:cites ?citation .
 
-    # A citation should have an inbox
+    # The citation(s) should have an inbox
     ?citation ldp:inbox ?inbox .
 
     (?id ?inbox "CreateInbox") log:skolem ?createInboxId .
@@ -47,20 +49,20 @@
         fno:executes ex:sendNotification ;
         ex:to ?inbox ;
         ex:notification [
-                a as:Announce ;
-                as:actor     <http://patrickhochstenbach.net/profile/card#me> ;
-                as:origin    <http://patrickhochstenbach.net/orchestrator/profile/card#me> ;
+                a as:Announce , ex:Citation ;
+                as:actor     <https://biblio.ugent.be/profile/card#me> ;
+                as:origin    <https://github.com/MellonScholarlyCommunication/OAI-Bridge/profile/card#me> ;
                 as:object    ?object
         ]
     ] .
-}.
+} .
 
 # Some metadata about the actors involved in this communication
 
-<http://patrickhochstenbach.net/profile/card#me> 
-    a as:Person ;
-    as:name "Patrick Hochstenbach".
-
-<http://patrickhochstenbach.net/orchestrator/profile/card#me> 
+<https://biblio.ugent.be/profile/card#me> 
     a as:Service ;
-    as:name "Pat's Koreografeye Orchestrator Demo".
+    as:name "Ghent University Academic Bibliography" .
+
+<https://github.com/MellonScholarlyCommunication/OAI-Bridge/profile/card#me> 
+    a as:Service ;
+    as:name "OAI-Bridge Demo Service" .
