@@ -1,5 +1,7 @@
 #!/bin/bash
 
+CMD=$1
+
 WD=`pwd`
 
 if [ ! -d ${WD}/../OAI-Bridge ]; then
@@ -9,9 +11,12 @@ fi
 
 cd ${WD}/../OAI-Bridge
 
-echo "Clean previous run..."
-
-npm run clean:real
+if [ "${CMD}" == "next" ]; then
+    echo "Create new run ..."
+else
+    echo "Clean previous run..."
+    npm run clean:real
+fi
 
 echo "Fetch some OAI-PMH data from https://biblio.ugent.be (Biblio)"
 

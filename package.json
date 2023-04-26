@@ -16,9 +16,10 @@
     "build:ts": "npm exec tsc",
     "build:components": "componentsjs-generator -s dist -r oaior83",
     "prepare": "npm run build",
-    
+
     "solid": "./bin/solid.sh",
     "bridge:demo": "./bin/bridge_demo.sh",
+    "bridge:demo-next": "./bin/bridge_demo.sh next",
     "extract:prepare": "npx orch --info --in solid/inbox --out pre rules/extractCitations.n3",
     "extract:prepare-demo": "npx orch --keep --single data/demo-in.ttl rules/extractCitations.n3  > data/demo-out.ttl ",
     "extract:run": "npx pol --info --in pre",
@@ -26,7 +27,9 @@
     "send:prepare": "npx orch --info --in in --out out rules/biblio/sendCitationNotification.n3",
     "send:run": "npx pol --info --in out",
     "clean": "rm pre/*",
-    "clean:real": "rm pre/* ; rm in/* ; rm out/*"
+    "clean:real": "rm pre/* ; rm in/* ; rm out/*",
+    "all:demo": "npm run bridge:demo ; npm run extract:prepare ; npm run extract:run ; npm run send:prepare ; npm run send:run",
+    "all:demo-next": "npm run bridge:demo-next ; npm run extract:prepare ; npm run extract:run ; npm run send:prepare ; npm run send:run"
   },
   "keywords": [
     "oai-pmh",

@@ -56,5 +56,7 @@ java -cp ${CERMINE} pl.edu.icm.cermine.ContentExtractor \
      -outputs jats > /dev/null 2>&1
 
 if [ $? -eq 0 ]; then
-  node dist/jats2rdf.js ${WORK_DIR}/workfile.cermxml $URL
+  if [ -f ${WORK_DIR}/workfile.cermxml ]; then
+    node dist/jats2rdf.js ${WORK_DIR}/workfile.cermxml $URL
+  fi
 fi
