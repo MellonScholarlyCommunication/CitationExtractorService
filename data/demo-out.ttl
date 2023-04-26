@@ -27,7 +27,7 @@ _:b2_sk_1 a <https://w3id.org/function/ontology#Execution>;
     <http://example.org/predicate> <http://purl.org/ontology/bibo/cites>.
 _:b2_sk_2 a <https://w3id.org/function/ontology#Execution>;
     <https://w3id.org/function/ontology#executes> <http://example.org/serializeAs>;
-    <http://example.org/path> <out/demo-in.ttl>.
+    <http://example.org/path> <in/demo-in.ttl>.
 _:b2_e_n3_MINUS_0_1 <https://www.example.org/ns/policy#mainSubject> <urn:uuid:f45d1f5c-8af3-44a5-8c5d-1c1e404a3f8d>.
 _:b2_e_n3_MINUS_1_1 <https://www.example.org/ns/policy#origin> <file:///var/folders/g8/czx2gjfs3_bbvvk1hjlcsj9m0000gn/T/data/demo-in.ttl>.
 <http://example.org/MyExtractCitations> <https://www.example.org/ns/policy#policy> _:b2_sk_0.

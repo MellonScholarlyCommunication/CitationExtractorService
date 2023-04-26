@@ -33,7 +33,7 @@ export class MockExtractCitationsPlugin extends PolicyPlugin {
 
             this.logger.info(`extracting citations for ${origin}`);
 
-            const url  = policy.args['http://example.org/url']?.value.replace(/^file:\/\/\//,'');
+            const url  = policy.args['http://example.org/url']?.value;
 
             if (url === undefined) {
                 this.logger.error(`no url in the policy`);
@@ -41,7 +41,9 @@ export class MockExtractCitationsPlugin extends PolicyPlugin {
                 return;
             }
 
-            this.logger.info(`processing ${url}`);
+            const file = url.replace(/^file:\/\/\//,'');
+
+            this.logger.info(`processing ${url} (${file})`);
 
             this.mockMentions.forEach( (mention) => {
                 mainStore.addQuad(

@@ -21,7 +21,7 @@
     ?url as:mediaType "application/pdf" .
 
     ?origin log:uri ?origin_str .
-    ( ?origin_str "^.*/" "out/" ) string:replace ?outPath .
+    ( ?origin_str "^.*/" "in/" ) string:replace ?outPath .
     ?outUrl log:uri ?outPath .
 }
 =>

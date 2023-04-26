@@ -38,7 +38,8 @@ trap cleanup EXIT
 if [[ ${URL} =~ ^http ]]; then
   wget --output-document=${WORK_DIR}/workfile.pdf ${URL}
 else
-  cp ${URL} ${WORK_DIR}/workfile.pdf
+  FILE=${URL/file:\/\/\/}
+  cp ${FILE} ${WORK_DIR}/workfile.pdf
 fi
 
 java -cp ${CERMINE} pl.edu.icm.cermine.ContentExtractor \

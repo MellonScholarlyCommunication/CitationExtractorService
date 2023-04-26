@@ -56,7 +56,7 @@ export class MockInboxLocatorPlugin extends PolicyPlugin {
     }
 
     private fakeResolveInbox(resource: string) : string {
-        this.logger.info(`resolveing inbox for ${resource}`);
+        this.logger.info(`resolving inbox for ${resource}`);
         const baseUrl = resource.replace(/^http(s)?:\/\//,'')
                                 .replace(/\/.*/,'')
                                 .replace(/$/,'/inbox/');

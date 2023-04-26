@@ -39,11 +39,8 @@
       },
       {
         "@id": "http://example.org/extractCitations",
-        "@type": "MockExtractCitationsPlugin",
-        "mockMentions": [],
-        "mockCitations": [
-          "http://hal.science/hal-01945311v1"
-        ]
+        "@type": "ExtractCitationsPlugin",
+        "citation_parser": "bin/pdf2citations.sh"
       },
       {
         "@id": "http://example.org/serializeAs",

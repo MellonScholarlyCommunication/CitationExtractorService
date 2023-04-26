@@ -32,7 +32,7 @@ export class ExtractCitationsPlugin extends PolicyPlugin {
 
             this.logger.info(`extracting citations for ${origin}`);
 
-            const url  = policy.args['http://example.org/url']?.value.replace(/^file:\/\/\//,'');
+            const url = policy.args['http://example.org/url']?.value;
 
             if (url === undefined) {
                 this.logger.error(`no url in the policy`);
