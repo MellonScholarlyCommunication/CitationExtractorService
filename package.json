@@ -16,7 +16,6 @@
     "build:ts": "npm exec tsc",
     "build:components": "componentsjs-generator -s dist -r oaior83",
     "prepare": "npm run build",
-
     "solid": "./bin/solid.sh",
     "bridge:demo": "./bin/bridge_demo.sh",
     "bridge:demo-next": "./bin/bridge_demo.sh next",
@@ -48,7 +47,7 @@
   "dependencies": {
     "@xmldom/xmldom": "^0.8.7",
     "componentsjs": "^5.3.2",
-    "koreografeye": "^0.2.5",
+    "koreografeye": "^0.2.7",
     "n3": "^1.16.4",
     "solid-bashlib": "^0.3.4",
     "xmldom": "^0.6.0",
