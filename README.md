@@ -24,6 +24,7 @@ CES is composed out of the following components:
 
 ```
 npm install
+npm run build
 ```
 
 ## Configuration
