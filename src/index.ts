@@ -1,3 +1,5 @@
 export * from './ExtractCitationsPlugin';
+export * from './MockExtractCitationsPlugin';
 export * from './SerializeAsPlugin';
-export * from './FakeInboxLocator';
+export * from './InboxLocatorPlugin';
+export * from './MockInboxLocatorPlugin';

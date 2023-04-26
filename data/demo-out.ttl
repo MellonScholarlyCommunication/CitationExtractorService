@@ -24,7 +24,7 @@ _:b2_sk_0 a <https://w3id.org/function/ontology#Execution>;
     <http://example.org/url> <file:///data/Notifications_in_Value_Adding_Networks.pdf>.
 _:b2_sk_1 a <https://w3id.org/function/ontology#Execution>;
     <https://w3id.org/function/ontology#executes> <http://example.org/inboxLocator>;
-    <http://example.org/predicate> <http://purl.org/ontology/bibo/mentions>.
+    <http://example.org/predicate> <http://purl.org/ontology/bibo/cites>.
 _:b2_sk_2 a <https://w3id.org/function/ontology#Execution>;
     <https://w3id.org/function/ontology#executes> <http://example.org/serializeAs>;
     <http://example.org/path> <out/demo-in.ttl>.

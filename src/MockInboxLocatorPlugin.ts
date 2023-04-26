@@ -4,7 +4,7 @@ import {
     PolicyPlugin
 } from 'koreografeye';
 
-export class FakeInboxLocator extends PolicyPlugin {
+export class MockInboxLocatorPlugin extends PolicyPlugin {
     fakeBaseUrl : string;
 
     constructor(fakeBaseUrl: string) {
@@ -50,25 +50,4 @@ export class FakeInboxLocator extends PolicyPlugin {
                                 .replace(/$/,'/inbox/');
         return this.fakeBaseUrl + '/' + baseUrl;
     }
-
-    // private async resolveInbox(resource: string) : Promise<string|null> {
-    //     return new Promise( async(resolve,_) => {
-    //         try {
-    //             const response = await fetch(resource, { method: 'HEAD'} );
-
-    //             if (! response.ok) {
-    //                 this.logger.error(`failed to retrieve ${resource} : ${(await response).status}`);
-    //                 resolve(null);
-    //                 return;
-    //             }
-
-    //             resolve("http://inbox.url");
-    //         }
-    //         catch (e) {
-    //             this.logger.error(`failed to retrieve ${resource} : general network error`);
-    //             resolve("http://inbox.url");
-    //             return;
-    //         }
-    //     });
-    // }
 }

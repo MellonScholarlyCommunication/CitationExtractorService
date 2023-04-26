@@ -39,7 +39,7 @@
     ex:MyMentionInboxLocator pol:policy [
         a fno:Execution ;
         fno:executes ex:inboxLocator ;
-        ex:predicate bibo:mentions
+        ex:predicate bibo:cites
     ] .
 
     # Write the main store to a file

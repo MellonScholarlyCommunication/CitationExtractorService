@@ -39,8 +39,11 @@
       },
       {
         "@id": "http://example.org/extractCitations",
-        "@type": "ExtractCitationsPlugin",
-        "citation_parser": "bin/pdf2citations.sh" 
+        "@type": "MockExtractCitationsPlugin",
+        "mockMentions": [],
+        "mockCitations": [
+          "http://hal.science/hal-01945311v1"
+        ]
       },
       {
         "@id": "http://example.org/serializeAs",
@@ -48,8 +51,7 @@
       },
       {
         "@id": "http://example.org/inboxLocator",
-        "@type": "FakeInboxLocator",
-        "fakeBaseUrl": "http://localhost:3000/fake"
+        "@type": "InboxLocatorPlugin"
       }
     ]
 }
