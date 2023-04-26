@@ -17,6 +17,7 @@ CES is composed out of the following components:
 
 ## Dependencies
 
+- Node v16.13.0
 - OAI-Bridge - https://github.com/MellonScholarlyCommunication/OAI-Bridge
 
 ## Configuration
