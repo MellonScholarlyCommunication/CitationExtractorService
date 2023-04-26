@@ -4,14 +4,25 @@ import {
     PolicyPlugin
 } from 'koreografeye';
 
+/**
+ * A mock LDN inbox locator. Every resource will get an inbox based on a faseBaseUrl
+ */
 export class MockInboxLocatorPlugin extends PolicyPlugin {
     fakeBaseUrl : string;
 
+    /**
+     * @constructor
+     * @param fakeBaseUrl - The base url for a fake inbox
+     */
     constructor(fakeBaseUrl: string) {
         super();
         this.fakeBaseUrl = fakeBaseUrl;
     }
 
+    /**
+     * Required policy parameter ex:predicate (the predicate that points to a resource
+     * to discover the LDN inbox for).
+     */
     public async execute (mainStore: N3.Store, _policyStore: N3.Store, policy: IPolicyType) : Promise<boolean> {
 
         return new Promise<boolean>( async (resolve,_) => {

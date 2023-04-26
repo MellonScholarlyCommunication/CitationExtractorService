@@ -4,16 +4,28 @@ import {
     PolicyPlugin
 } from 'koreografeye';
 
+/**
+ * A mock citation extractor that generates fake bibo:mention and bibo:cites.
+ * The fake citations will be added to the main store.
+ */
 export class MockExtractCitationsPlugin extends PolicyPlugin {
     mockMentions : string[];
     mockCitations : string[];
 
+    /**
+     * @constructor
+     * @param mockMentions - The fake mentions URLs
+     * @param mockCitations - The fake citation URLs
+     */
     constructor(mockMentions: string[], mockCitations: string[]) {
         super();
         this.mockMentions = mockMentions;
         this.mockCitations = mockCitations;
     }
 
+    /**
+     * Required policy parameter ex:url (the location of the PDF).
+     */
     public async execute (mainStore: N3.Store, _policyStore: N3.Store, policy: IPolicyType) : Promise<boolean> {
 
         return new Promise<boolean>( (resolve,_) => {

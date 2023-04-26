@@ -6,8 +6,14 @@ import {
     rdfTransformStore
 } from 'koreografeye';
 
+/**
+ * A plugin to serialize the main store to a file on disk
+ */
 export class SerializeAsPlugin extends PolicyPlugin {
 
+    /**
+     * Requires ex:path the new file name of the main store serialization
+     */
     public async execute (mainStore: N3.Store, _policyStore: N3.Store, policy: IPolicyType) : Promise<boolean> {
 
         return new Promise<boolean>( async (resolve,_) => {

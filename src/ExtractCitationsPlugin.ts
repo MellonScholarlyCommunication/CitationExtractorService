@@ -6,14 +6,25 @@ import {
     parseStringAsN3Store 
 } from 'koreografeye';
 
+/**
+ * A PDF citation extractor using an extract extraction process (e.g. bin/pdf2citations.sh).
+ * The extracted mentions and citations will be added to the main store.
+ */
 export class ExtractCitationsPlugin extends PolicyPlugin {
     citation_parser: string;
 
+    /**
+     * @constructor
+     * @param citation_parser - The location of the pdf2citations processor
+     */
     constructor(citation_parser: string) {
         super();
         this.citation_parser = citation_parser;
     }
 
+    /**
+     * Required policy parameter ex:url (the location of the PDF).
+     */
     public async execute (mainStore: N3.Store, _policyStore: N3.Store, policy: IPolicyType) : Promise<boolean> {
 
         return new Promise<boolean>( (resolve,_) => {

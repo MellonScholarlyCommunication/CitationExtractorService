@@ -5,7 +5,16 @@ import {
     PolicyPlugin
 } from 'koreografeye';
 
+/**
+ * An LDN inbox discover plugin. Follows the object of an ex:predicate and 
+ * tries to find the LDN inbox location from the HTTP Link headers
+ */
 export class InboxLocatorPlugin extends PolicyPlugin {
+
+    /**
+     * Required policy parameter ex:predicate (the predicate that points to a resource
+     * to discover the LDN inbox for).
+     */
     public async execute (mainStore: N3.Store, _policyStore: N3.Store, policy: IPolicyType) : Promise<boolean> {
 
         return new Promise<boolean>( async (resolve,_) => {
