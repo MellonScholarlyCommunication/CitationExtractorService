@@ -20,6 +20,12 @@ CES is composed out of the following components:
 - Node v16.13.0
 - OAI-Bridge - https://github.com/MellonScholarlyCommunication/OAI-Bridge
 
+## Installation
+
+```
+npm install
+```
+
 ## Configuration
 
 ### config.jsonld
