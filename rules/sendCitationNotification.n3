@@ -4,34 +4,53 @@
 @prefix pol:  <https://www.example.org/ns/policy#> .
 @prefix fno:  <https://w3id.org/function/ontology#> .
 @prefix string: <http://www.w3.org/2000/10/swap/string#> .
-@prefix log: <http://www.w3.org/2000/10/swap/log#> .
+@prefix log:  <http://www.w3.org/2000/10/swap/log#> .
 @prefix list: <http://www.w3.org/2000/10/swap/list#> .
+@prefix bibo: <http://purl.org/ontology/bibo/> .
+@prefix ldp:  <http://www.w3.org/ns/ldp#> .
 
 {
     # pol:mainSubject defines the top level identifier of the notification
     [ pol:mainSubject ?id ] .
 
-    # We need an about page
-    ?id a sorg:AboutPage .
+    # We need an Announce notification
+    ?id a as:Announce .
 
-    # This about page should also have a url
-    ?id as:url ?url .
+    # This id has an object
+    ?id as:object ?object .
+
+    # This object should also have a url
+    ?object as:url ?url .
+
+    # This url should have citations
+    ?url bibo:cites ?citation .
+
+    # A citation should have an inbox
+    ?citation ldp:inbox ?inbox .
+
+    (?id ?inbox "CreateInbox") log:skolem ?createInboxId .
+    (?id ?inbox ?object "SendNotification") log:skolem ?sendNotificationId .
 }
 =>
 {
+    # Create a inbox if it doesn't exist yet
+    ?createInboxId pol:policy [
+        a fno:Execution ;
+        fno:executes ex:inboxCreator ;
+        ldp:inbox ?inbox 
+    ] .
+
     # When the conditions above hold, the I want a policy executed
-    # that sends out a LDN notification to the COAR demo inbox 
-    # with the mathching sorg:AboutPage as as:object
-    ex:MySendNotificationDemo pol:policy [
+    # that sends out a LDN notification to the inbox
+    ?sendNotificationId pol:policy [
         a fno:Execution ;
         fno:executes ex:sendNotification ;
-        ex:to <http://localhost:3000/inbox/> ;
+        ex:to ?inbox ;
         ex:notification [
                 a as:Announce ;
                 as:actor     <http://patrickhochstenbach.net/profile/card#me> ;
                 as:origin    <http://patrickhochstenbach.net/orchestrator/profile/card#me> ;
-                as:target    <http://localhost:3000/profile/card#me> ;
-                as:object    ?id
+                as:object    ?object
         ]
     ] .
 }.
@@ -41,10 +60,6 @@
 <http://patrickhochstenbach.net/profile/card#me> 
     a as:Person ;
     as:name "Patrick Hochstenbach".
-
-<http://localhost:3000/profile/card#me>
-    a as:Person ;
-    as:name "Freddy Test".
 
 <http://patrickhochstenbach.net/orchestrator/profile/card#me> 
     a as:Service ;

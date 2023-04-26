@@ -47,9 +47,15 @@
         "@type": "SerializeAsPlugin"
       },
       {
+        "@id": "http://example.org/inboxCreator",
+        "@type": "MockCreateInboxPlugin",
+        "fakeBaseUrl": "http://localhost:3000/experiment",
+        "solidPath": "solid/experiment"
+      },
+      {
         "@id": "http://example.org/inboxLocator",
         "@type": "MockInboxLocatorPlugin",
-        "fakeBaseUrl": "https://localhost:3000/experiment"
+        "fakeBaseUrl": "http://localhost:3000/experiment"
       }
     ]
 }
