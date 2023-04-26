@@ -41,7 +41,7 @@ export class MockInboxLocatorPlugin extends PolicyPlugin {
                 this.logger.debug(`url: ${urlValue}`);
 
                 const inboxValue = this.fakeResolveInbox(urlValue);
-                this.logger.debug(`inbox: ${inboxValue}`);
+                this.logger.info(`inbox: ${inboxValue}`);
 
                 mainStore.addQuad(
                     N3.DataFactory.namedNode(urlValue),
@@ -56,7 +56,8 @@ export class MockInboxLocatorPlugin extends PolicyPlugin {
     }
 
     private fakeResolveInbox(resource: string) : string {
-        const baseUrl = resource.replace(/^http(s):\/\//,'')
+        this.logger.info(`resolveing inbox for ${resource}`);
+        const baseUrl = resource.replace(/^http(s)?:\/\//,'')
                                 .replace(/\/.*/,'')
                                 .replace(/$/,'/inbox/');
         return this.fakeBaseUrl + '/' + baseUrl;

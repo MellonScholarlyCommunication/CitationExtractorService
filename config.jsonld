@@ -51,7 +51,8 @@
       },
       {
         "@id": "http://example.org/inboxLocator",
-        "@type": "InboxLocatorPlugin"
+        "@type": "MockInboxLocatorPlugin",
+        "fakeBaseUrl": "https://localhost:3000/experiment"
       }
     ]
 }
