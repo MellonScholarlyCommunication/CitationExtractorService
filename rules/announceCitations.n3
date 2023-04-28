@@ -1,0 +1,61 @@
+@prefix ex:   <http://example.org/> .
+@prefix as:   <https://www.w3.org/ns/activitystreams#> .
+@prefix sorg: <https://schema.org/>.
+@prefix pol:  <https://www.example.org/ns/policy#> .
+@prefix fno:  <https://w3id.org/function/ontology#> .
+@prefix string: <http://www.w3.org/2000/10/swap/string#> .
+@prefix log:  <http://www.w3.org/2000/10/swap/log#> .
+@prefix list: <http://www.w3.org/2000/10/swap/list#> .
+@prefix bibo: <http://purl.org/ontology/bibo/> .
+@prefix ldp:  <https://www.w3.org/ns/ldp#> .
+
+{
+    # We need an Offer notification
+    ?id a as:Offer .
+    # ... which is an CitationExtraction request
+    ?id a ex:CitationExtraction .
+
+    # This id has an object
+    ?id as:object ?object .
+
+    # This is has an actor
+    ?id as:actor ?actor .
+    
+    # ... with an inbox
+    ?actor ldp:inbox ?inbox .
+
+    # We also need to have a service result
+    ?serviceResult ex:serviceResult ?serviceResultUrl .
+}
+=>
+{
+    # When the conditions above hold, the I want a policy executed
+    # that sends out a LDN notification to the inbox
+    :MyAnswerPolicy pol:policy [
+        a fno:Execution ;
+        fno:executes ex:sendNotification ;
+        ex:to ?inbox ;
+        ex:notification [
+                a as:Announce , ex:CitationExtraction ;
+                as:actor     <http://localhost:3000/service/profile/card#me> ;
+                as:origin    <https://github.com/MellonScholarlyCommunication/CitationExtractorService/profile/card#me> ;
+                as:inReplyTo ?id ;
+                as:context   ?object ;
+                as:object    ?serviceResultUrl ;
+                as:target    ?actor 
+        ]
+    ] .
+
+    ?serviceResultUrl a as:Document , ex:ServiceResult , ex:ParsedCitationDocument.
+} .
+
+# Some metadata about the actors involved in this communication
+
+<http://localhost:3000/service/profile/card#me> 
+    a as:Service ;
+    as:name "Citation Extraction Service" ;
+    ldp:inbox <http://localhost:3000/service/inbox> .
+
+<https://github.com/MellonScholarlyCommunication/CitationExtractorService/profile/card#me> 
+    a as:Service ;
+    as:name "Mellon Citation Extractor Service Server" .

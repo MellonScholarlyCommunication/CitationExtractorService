@@ -1,9 +1,10 @@
 import * as N3 from 'n3';
+import * as fs from 'fs';
 import { spawn } from 'node:child_process';
+import { v4 as uuidv4 } from 'uuid';
 import {
     type IPolicyType,
-    PolicyPlugin,
-    parseStringAsN3Store 
+    PolicyPlugin
 } from 'koreografeye';
 
 /**
@@ -12,14 +13,18 @@ import {
  */
 export class ExtractCitationsPlugin extends PolicyPlugin {
     citation_parser: string;
+    outputDirectory: string;
+    resultBaseUrl: string;
 
     /**
      * @constructor
      * @param citation_parser - The location of the pdf2citations processor
      */
-    constructor(citation_parser: string) {
+    constructor(citation_parser: string, outputDirectory: string, resultBaseUrl: string) {
         super();
         this.citation_parser = citation_parser;
+        this.outputDirectory = outputDirectory;
+        this.resultBaseUrl   = resultBaseUrl;
     }
 
     /**
@@ -69,29 +74,22 @@ export class ExtractCitationsPlugin extends PolicyPlugin {
                 }
 
                 try {
-                    this.logger.info(`adding citation quads to the main store`);
+                    const serviceResultId   = uuidv4();
+                    const serviceResultFile = this.outputDirectory + '/' + serviceResultId + '.ttl';
+                    const serviceResultUrl  = this.resultBaseUrl + '/' + serviceResultId + '.ttl';
 
-                    const cstore = await parseStringAsN3Store(resultData);
+                    this.logger.info(`creating service result file ${serviceResultFile}`);
 
-                    let counter = 0;
-                    cstore.forEach( (quad) => {
-                        counter++;
-                        const bn = N3.DataFactory.blankNode();
-                        mainStore.addQuad(
-                            bn,
-                            N3.DataFactory.namedNode('https://www.w3.org/ns/activitystreams#url'),
-                            quad.subject,
-                            quad.graph
-                        );
-                        mainStore.addQuad(
-                            bn,
-                            quad.predicate,
-                            quad.object,
-                            quad.graph
-                        );
-                    }, null, null, null, null);
+                    fs.writeFileSync(serviceResultFile,resultData);
 
-                    this.logger.info(`found ${counter} citation triples`);
+                    this.logger.info(`adding service result url ${serviceResultUrl} to main store`);
+
+                    mainStore.addQuad(
+                            N3.DataFactory.blankNode(),
+                            N3.DataFactory.namedNode('http://example.org/serviceResult'),
+                            N3.DataFactory.namedNode(serviceResultUrl),
+                            N3.DataFactory.defaultGraph()
+                    );
                 } 
                 catch (e) {
                     this.logger.error(`failed to parse citation output`);

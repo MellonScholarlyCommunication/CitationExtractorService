@@ -10,18 +10,24 @@
 @prefix dcterms: <http://purl.org/dc/terms/> .
 
 {
-    # pol:mainSubject defines the top level identifier of the notification
-    [ pol:mainSubject ?id ] .
-    
     # pol:origin defined the path to the original input file
     [ pol:origin ?origin ] .
 
-    ?id a as:Announce .
-    ?id as:object ?object .
-    ?object as:url ?url .
-    ?url as:mediaType "application/pdf" .
-    ?url dcterms:accessRights "open" .
+    # We need an as:Offer...
+    ?id a as:Offer.
 
+    # ...which contains a (PDF) object
+    ?id  as:object ?pdf .
+
+    # ...check that it is pdf via the notification metadata
+    # this is a temp solution due to a bug in the Biblio repository
+    ?pdf as:mediaType "application/pdf" .
+
+    # ...check that is is open access
+    # this is a temp solution, pdf files that can't be retrieved could be skipped
+    ?pdf dcterms:accessRights "open" .
+
+    # Create an output directory for the parsed data
     ?origin log:uri ?origin_str .
     ( ?origin_str "^.*/" "in/" ) string:replace ?outTmp .
     ( ?outTmp "\\.\\w+$" ".ttl" ) string:replace ?outPath . 
@@ -35,7 +41,7 @@
     ex:MyExtractCitations pol:policy [
         a fno:Execution ;
         fno:executes ex:extractCitations ;
-        ex:url ?url 
+        ex:url ?pdf
     ] .
 
     # Locate the inboxes for the bibo:mention

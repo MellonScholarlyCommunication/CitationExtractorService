@@ -2,16 +2,28 @@
 
 PORT=3000
 
-cd solid
-
-if [ ! -d inbox ]; then
-    mkdir inbox
+if [ ! -d solid ]; then
+    mkdir solid
 fi
 
-rm inbox/*
+cd solid
 
-if [ -d experiment ]; then
-    rm -rf experiment
+if [ ! -d service/inbox ]; then
+    mkdir -p service/inbox
+else
+    rm service/inbox/*
+fi
+
+if [ ! -d service/results ]; then
+    mkdir -p service/results
+else
+    rm service/results/*
+fi
+
+if [ ! -d repository/inbox ]; then
+    mkdir -p repository/inbox
+else
+    rm repository/inbox/*
 fi
 
 community-solid-server -p ${PORT} -c @css:config/file-no-setup.json

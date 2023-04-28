@@ -11,9 +11,9 @@ CES watches an LDN Inbox for `as:Announce` notification messages about new publi
 CES is composed out of the following components:
 
 - **LDN Inbox** - The LDN inbox endpoint from which CES receives incoming notifications about new publications
-- **Input Folder** - The storage location of new notification messages
-- **orch** - An orchestration components that for each notification message executes one or more N3 rules to defined next actions in the process
-- **pol** - A policy executor component that will send out LDN messages for each citation discovered
+- **Koreografeye** - The [koreografeye](https://github.com/eyereasoner/Koreografeye) reasoning engine
+- **Citation processors** - Software to fetch PDF files and extract citation/mentions
+- **N3 rules** - Rules that define what to process and how to respond
 
 ## Dependencies
 
@@ -87,7 +87,7 @@ In the next step CES will read the LDN Inbox of the Solid instance and for each 
 steps will be for each notification message. The results will be written to the `pre/` directory.
 
 ```
-npm run extract:preparenpm run extract:prepare
+npm run extract:prepare
 ```
 
 The `pre/` directory will now contain for each `as:Announce` notification the required
