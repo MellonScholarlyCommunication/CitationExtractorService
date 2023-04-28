@@ -61,7 +61,7 @@ node dist/client.js --info --from ${FROM} --until ${UNTIL} --max-no-del ${MAX} -
 echo "Run the orchestrator on the Biblio input"
 
 if [ "${RULE}" == "" ]; then
-    npx orch --info --in in --out out rules/sendNotification.n3
+    npx orch --info --in in --out out rules/offerCitationExtraction.n3
 else
     npx orch --info --in in --out out ${RULE}
 fi
