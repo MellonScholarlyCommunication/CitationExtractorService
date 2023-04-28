@@ -12,14 +12,15 @@
     "dist/**/*.js.map"
   ],
   "scripts": {
-    "build": "npm run build:ts && npm run build:components",
-    "build:ts": "npm exec tsc",
+    "build": "yarn build:ts && yarn build:components",
+    "build:ts": "tsc",
     "build:components": "componentsjs-generator -s dist -r oaior83",
-    "prepare": "npm run build",
+    "prepare": "yarn build",
     "solid": "./bin/solid.sh",
     "bridge:demo": "./bin/bridge_demo.sh new",
     "bridge:demo-next": "./bin/bridge_demo.sh next",
-    "extract:prepare": "npx orch --info --in solid/service/inbox --out pre rules/extractCitations.n3",
+    "watch": "bin/watch.sh http://localhost:3000/ces/inbox/",
+    "extract:prepare": "npx orch --info --in pre-ingest --out pre rules/extractCitations.n3",
     "extract:prepare-demo": "npx orch --keep --single data/demo-in.ttl rules/extractCitations.n3  > data/demo-out.ttl ",
     "extract:run": "npx pol --info --in pre",
     "extract:run-demo": "npx pol --info --keep --single data/demo-out.ttl",
@@ -27,8 +28,8 @@
     "send:run": "npx pol --info --in out",
     "clean": "rm pre/*",
     "clean:real": "rm pre/* ; rm in/* ; rm out/*",
-    "all:demo": "npm run bridge:demo ; npm run extract:prepare ; npm run extract:run ; npm run send:prepare ; npm run send:run",
-    "all:demo-next": "npm run bridge:demo-next ; npm run extract:prepare ; npm run extract:run ; npm run send:prepare ; npm run send:run"
+    "all:demo-new": "yarn bridge:demo ; yarn watch ; yarn extract:prepare ; yarn extract:run ; yarn send:prepare ; yarn send:run",
+    "all:demo-next": "yarn bridge:demo-next ; yarn watch ; yarn extract:prepare ; yarn extract:run ; yarn send:prepare ; yarn send:run"
   },
   "keywords": [
     "oai-pmh",

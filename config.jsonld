@@ -27,8 +27,8 @@
         "@id": "http://example.org/extractCitations",
         "@type": "ExtractCitationsPlugin",
         "citation_parser": "bin/pdf2citations.sh",
-        "outputDirectory": "solid/service/results",
-        "resultBaseUrl": "http://localhost:3000/service/results"
+        "outputDirectory": "solid/ces/results",
+        "resultBaseUrl": "http://localhost:3000/ces/results"
       },
       {
         "@id": "http://example.org/serializeAs",

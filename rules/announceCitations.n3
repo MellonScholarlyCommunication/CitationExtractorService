@@ -37,7 +37,7 @@
         ex:to ?inbox ;
         ex:notification [
                 a as:Announce , ex:CitationExtraction ;
-                as:actor     <http://localhost:3000/service/profile/card#me> ;
+                as:actor     <http://localhost:3000/ces/profile/card#me> ;
                 as:origin    <https://github.com/MellonScholarlyCommunication/CitationExtractorService/profile/card#me> ;
                 as:inReplyTo ?id ;
                 as:context   ?object ;
@@ -51,7 +51,7 @@
 
 # Some metadata about the actors involved in this communication
 
-<http://localhost:3000/service/profile/card#me> 
+<http://localhost:3000/ces/profile/card#me> 
     a as:Service ;
     as:name "Citation Extraction Service" ;
     ldp:inbox <http://localhost:3000/service/inbox> .

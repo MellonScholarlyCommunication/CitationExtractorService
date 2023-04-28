@@ -17,14 +17,14 @@ CES is composed out of the following components:
 
 ## Dependencies
 
-- Node v16.13.0
+- Node v16.18.1
 - OAI-Bridge - https://github.com/MellonScholarlyCommunication/OAI-Bridge
 
 ## Installation
 
 ```
-npm install
-npm run build
+yarn install
+yarn build
 ```
 
 ## Configuration
@@ -64,7 +64,7 @@ By starting the CES Solid CSS server, we create an LDN endpoint on port 3000 on 
 Open a new terminal and type:
 
 ```
-npm run solid
+yarn solid
 ```
 
 ### 2. Send some OAI-Bridge notifications to the Solid CSS server
@@ -74,7 +74,7 @@ OAI-Brige is a project as a bridge between the OAI-PMH protocol and the [Event N
 In our examples data from https://biblio.ugent.be (Biblio) will be used.
 
 ```
-npm run bridge:demo
+yarn bridge:demo
 ```
 
 After this step we can find on the Solid server http://localhost:3000/inbox/ some incoming 
@@ -87,7 +87,7 @@ In the next step CES will read the LDN Inbox of the Solid instance and for each 
 steps will be for each notification message. The results will be written to the `pre/` directory.
 
 ```
-npm run extract:prepare
+yarn extract:prepare
 ```
 
 The `pre/` directory will now contain for each `as:Announce` notification the required
@@ -99,7 +99,7 @@ In this processing step CES will do the actual PDF extraction of citations and g
 new output file in the `in` directory for each processed notification.
 
 ```
-npm run extract:run
+yarn extract:run
 ```
 
 ### 5. Process the citations and decide what to do with them
@@ -108,7 +108,7 @@ In this procesing step CES will use N3 rules in `biblio/sendCitationNotification
 decide what to do with the citations found in the previous step.
 
 ```
-npm run send:prepare
+yarn send:prepare
 ```
 
 The results of this step will be in the `out` directory.
@@ -120,5 +120,5 @@ policy executer. In our demo the citations will be sent mock LDN inboxes as
 http://localhost:3000/experiment/
 
 ```
-npm run send:run
+yarn send:run
 ```

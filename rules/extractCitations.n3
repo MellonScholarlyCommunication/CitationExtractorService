@@ -14,7 +14,9 @@
     [ pol:origin ?origin ] .
 
     # We need an as:Offer...
-    ?id a as:Offer.
+    ?id a as:Offer .
+    # ... of type ex:CitationExtraction
+    ?id a ex:CitationExtraction .
 
     # ...which contains a (PDF) object
     ?id  as:object ?pdf .
