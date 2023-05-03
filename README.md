@@ -48,12 +48,11 @@ An N3 rule file that requests:
 - the discovery of the LDN inbox for each of these citations
 - the generation of a new input file for reasoning
 
-## rules/biblio/sendCitationNotification.n3
+## rules/biblio/announceCitations.n3
 
-An N3 rule file that requests:
+An N3 rule file that:
 
-- for each citation found the generation of a demonstration LDN inbox
-- send the citation as `as:Announce+ex:Citation` message to this LDN inbox
+- send the parsed citations as a service result to the requesting data node
 
 ## Demonstration
 
