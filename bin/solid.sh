@@ -32,4 +32,10 @@ else
     rm repository/inbox/*
 fi
 
+if [ ! -d experiment ]; then
+    mkdir -p experiment
+else
+    rm -rf experiment/*
+fi
+
 community-solid-server -p ${PORT} -c @css:config/file-no-setup.json
