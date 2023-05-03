@@ -10,6 +10,9 @@
 @prefix dcterms: <http://purl.org/dc/terms/> .
 
 {
+    # pol:origin defined the path to the original input file
+    [ pol:origin ?origin ] .
+    
     # We need an as:Offer...
     ?id a as:Offer .
     # ... of type ex:CitationExtraction
