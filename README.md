@@ -2,7 +2,8 @@
 
 The Citation Extractor Service (CES) is a Service Node in a [Value-Adding Network](https://www.eventnotifications.net).
 
-CES watches an LDN Inbox for `as:Announce` notification messages about new published PDF documents. For each PDF document an citation extraction process is executed. For each citation, CES will try to discover its LDN inbox and send an `as:Announce + ex:Citation` notification message.
+CES watches an LDN Inbox for `as:Offer` notification messages about new published PDF documents. For each PDF document an citation extraction process is executed. The 
+results of this citation extraction process is sent back to the requestor of the offer.
 
 ## Architecture
 
@@ -27,6 +28,43 @@ yarn install
 yarn build
 ```
 
+## Example as:Offer
+
+```(json)
+{
+  "@context": "https://www.w3.org/ns/activitystreams",
+  "id": "urn:uuid:775adc40-3cdf-4a84-827a-b74ca4485800",
+  "type": [
+    "Offer",
+    "http://example.org/CitationExtraction"
+  ],
+  "actor": {
+    "id": "https://biblio.ugent.be/profile/card#me",
+    "type": "Service",
+    "inbox": "http://n062-07.wall2.ilabt.iminds.be:3000/inbox/",
+    "name": "Ghent University Academic Bibliography"
+  },
+  "object": {
+    "id": "https://biblio.ugent.be/publication/8655843/file/8655844.pdf",
+    "type": [
+      "Article",
+      "https://schema.org/ScholarlyArticle"
+    ]
+  },
+  "origin": {
+    "id": "https://github.com/MellonScholarlyCommunication/OAI-Bridge/profile/card#me",
+    "type": "Service",
+    "name": "OAI-Bridge Demo Service"
+  },
+  "target": {
+    "id": "http://n062-07.wall2.ilabt.iminds.be:3001/profile/card#me",
+    "type": "Service",
+    "inbox": "http://n062-07.wall2.ilabt.iminds.be:3001/inbox/",
+    "name": "Citation Extraction Service"
+  }
+}
+```
+
 ## Configuration
 
 ### config.jsonld
@@ -37,8 +75,6 @@ Definition of all orchestration and policy execution plugins that will be used.
 - `http://example.org/sendNotification` - Definition of the LDN sender component
 - `http://example.org/extractCitations` - Definition of the PDF citation extraction component
 - `http://example.org/serializeAs` - Definition of the N3 store serialization component
-- `http://example.org/inboxCreator` - Definition of an LDN inbox creator component (used in local experiments)
-- `http://example.org/inboxLocator` - Definition of an LDN inbox discovery component
 
 ### rules/extractCitations.n3
 
@@ -112,11 +148,11 @@ yarn send:prepare
 
 The results of this step will be in the `out` directory.
 
-### 6. Execute the final sending of citations to the (external) LDN inboxeso
+### 6. Execute the final sending of citations to the (external) LDN inboxes
 
 In the processing step the results of the `out` directory will be executed by the 
-policy executer. In our demo the citations will be sent mock LDN inboxes as
-http://localhost:3000/experiment/
+policy executer. In our demo the citations will be sent back to the requestor
+of the as:Offer.
 
 ```
 yarn send:run
