@@ -12,7 +12,7 @@
 {
     # pol:origin defined the path to the original input file
     [ pol:origin ?origin ] .
-    
+
     # We need an as:Offer...
     ?id a as:Offer .
     # ... of type ex:CitationExtraction
@@ -44,13 +44,6 @@
         a fno:Execution ;
         fno:executes ex:extractCitations ;
         ex:url ?pdf
-    ] .
-
-    # Locate the inboxes for the bibo:mention
-    ex:MyMentionInboxLocator pol:policy [
-        a fno:Execution ;
-        fno:executes ex:inboxLocator ;
-        ex:predicate bibo:cites
     ] .
 
     # Write the main store to a file
