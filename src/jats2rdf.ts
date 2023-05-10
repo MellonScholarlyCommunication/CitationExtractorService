@@ -1,14 +1,24 @@
+import minimist from 'minimist';
 import fs from 'fs';
 import N3 from 'n3';
+import md5 from 'md5';
 import { DOMParser } from '@xmldom/xmldom';
+
+const EX   = 'http://example.org/';
+const CITO = 'http://purl.org/spar/cito/';
+const SORG = 'http://schema.org/';
+const PEXT = 'http://www.ontotext.com/proton/protonext#';
+const RDF  = 'http://www.w3.org/1999/02/22-rdf-syntax-ns#';
 
 let xpath = require('xpath');
 
-let file  = process.argv[2];
-let url   = process.argv[3];
+let argv  = minimist(process.argv.slice(2));
+
+let file  = argv['_'][0];
+let url   = argv['_'][1];
 
 if (! file ) {
-    console.error('usage: cermin_parser.js file [url]');
+    console.error('usage: [--no-citations] [--no-mentions] cermin_parser.js file [url]');
     process.exit(1);
 }
 
@@ -24,8 +34,14 @@ catch (e) {
 }
 
 async function main(doc: Document) : Promise<void> {
-    await parse_citations(doc,store);
-    await parse_mentions(doc,store);
+    if (argv['citations'] === undefined || argv['citations'] === true ) {
+        await parse_citations(doc,store);
+    }
+
+    if (argv['mentions'] === undefined || argv['mentions'] === true) {
+        await parse_mentions(doc,store);
+    }
+
     let rdf = await store2str(store);
     console.log(rdf);
 }
@@ -33,7 +49,10 @@ async function main(doc: Document) : Promise<void> {
 async function store2str(store: N3.Store) : Promise<string> {
     return new Promise<string>( (resolve,_) => {
         const writer = new N3.Writer({ prefixes: {
-            bibo: 'http://purl.org/ontology/bibo/'
+            ex: EX,
+            cito: CITO,
+            schema: SORG,
+            pext: PEXT
         }});
 
         store.forEach( (quad) => {
@@ -95,30 +114,27 @@ async function parse_citations(doc : Document, store: N3.Store) : Promise<void> 
         if (! n1.hasChildNodes()) {
             return;
         }
-  
-        for (let i = 0 ; i < n1.childNodes.length ; i++ ) {
-            let n2 = n1.childNodes[i];
+ 
+        const citationText = n1.textContent?.replace(/\n/g,'').replace(/ +/g,' ');
 
-            if (n2.nodeType === n2.TEXT_NODE) {
-                let str = n2.toString();
-
-                if (str?.match(/.*http\S+.*/)) {
-                    let citation = str.replace(/.*(http\S+).*/g,"$1")
-                                   .replace(/\.$/,'');
-                    citations.push(stringParser(citation));
-                }
-            }
-            else {
-                let str = n2.firstChild?.toString();
-
-                if (str?.match(/.*http\S+.*/)) {
-                    let citation = str.replace(/.*(http\S+).*/g,"$1")
-                                   .replace(/\.$/,'');
-                    citations.push(stringParser(citation));
-                }
+        if (citationText?.match(/.*http\S+.*/)) {
+            const citation = citationText.replace(/.*(http.*)/g,"$1")
+                              .replace(/ +/g,'')
+                              .replace(/\n/g,'')
+                              .replace(/\.$/,'');
+            if (citation.length) {
+                citations.push(citation);
             }
         }
-
+        else if (citationText?.match(/.*[Dd][Oo][Ii]/)) {
+            const citation = citationText.replace(/.*[Dd][Oo][Ii]\s*:?\s*(\S+)/,"$1")
+                              .replace(/ +/g,'')
+                              .replace(/\n/g,'')
+                              .replace(/\.$/,'');
+            if (citation.length) {
+                citations.push(`http://dx.doi.org/${citation}`);
+            }
+        }
     });
 
     await citations2rdf(citations,store);
@@ -131,17 +147,35 @@ async function citations2rdf(citations: string[], store: N3.Store) : Promise<voi
         const namedNode = DataFactory.namedNode;
         const defaultGraph = DataFactory.defaultGraph;
 
+        const citingEntity = url ? url : file;
+
         const uniqueCitations = [...new Set<string>(citations)];
 
-        uniqueCitations.filter( (str:string) => validURL(str)).forEach( (str) => {
-            if (!str) {
+        uniqueCitations.filter( (str:string) => validURL(str)).forEach( (citedEntity) => {
+            if (!citedEntity) {
                 return;
             }
 
+            const citationIdentifier = makeCitationId(citingEntity,citedEntity);
+
             store.addQuad(
-                namedNode(url ? url : file),
-                namedNode('http://purl.org/ontology/bibo/cites'),
-                namedNode(str),
+                namedNode(citationIdentifier),
+                namedNode(RDF + 'type'),
+                namedNode(CITO + 'Citation'),
+                defaultGraph()
+            );
+
+            store.addQuad(
+                namedNode(citationIdentifier),
+                namedNode(CITO + 'hasCitingEntity'),
+                namedNode(citingEntity),
+                defaultGraph()
+            );
+
+            store.addQuad(
+                namedNode(citationIdentifier),
+                namedNode(CITO + 'hasCitedEntity'),
+                namedNode(citedEntity),
                 defaultGraph()
             );
         });
@@ -157,17 +191,28 @@ async function mentions2rdf(mentions: string[], store: N3.Store) : Promise<void>
         const namedNode = DataFactory.namedNode;
         const defaultGraph = DataFactory.defaultGraph;
  
+        const citingEntity = url ? url : file;
+
         const uniqueMentions = [...new Set<string>(mentions)];
 
-        uniqueMentions.filter( (str:string) => validURL(str) ).forEach( (str: string) => {
-            if (!str) {
+        uniqueMentions.filter( (str:string) => validURL(str) ).forEach( (citedEntity: string) => {
+            if (!citedEntity) {
                 return;
             }
 
+            const citationIdentifier = makeMentionId(citingEntity,citedEntity);
+
             store.addQuad(
-                namedNode(url ? url : file),
-                namedNode('http://purl.org/ontology/bibo/mentions'),
-                namedNode(str),
+                namedNode(citationIdentifier),
+                namedNode(RDF + 'type'),
+                namedNode(PEXT + 'Mention'),
+                defaultGraph()
+            );
+
+            store.addQuad(
+                namedNode(citationIdentifier),
+                namedNode(SORG + 'mentions'),
+                namedNode(citedEntity),
                 defaultGraph()
             );
         });
@@ -189,13 +234,10 @@ function validURL(str: string) : boolean {
     return valid;
 }
 
-function stringParser(str: string | undefined) {
-    if (!str) {
-        return "";
-    }
-    
-    let parsed = str.replace(/[\s]+/gm,' ')
-                    .replace(/^\s+/,'')
-                    .replace(/\s+$/,'');
-    return parsed;
+function makeCitationId(citingEntity: string, citedEntity: string) : string {
+    return EX + 'citation/' + md5(citingEntity + '-' + citedEntity);
+}
+
+function makeMentionId(citingEntity: string, citedEntity: string) : string {
+    return EX + 'mention/' + md5(citingEntity + '-' + citedEntity);
 }

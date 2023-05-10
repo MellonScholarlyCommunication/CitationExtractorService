@@ -41,6 +41,7 @@
   "license": "MIT",
   "devDependencies": {
     "@types/jsonld": "^1.5.8",
+    "@types/md5": "^2.3.2",
     "@types/n3": "^1.10.4",
     "@types/parse-link-header": "^2.0.1",
     "componentsjs-generator": "^3.1.0",
@@ -50,6 +51,8 @@
     "@xmldom/xmldom": "^0.8.7",
     "componentsjs": "^5.3.2",
     "koreografeye": "^0.2.7",
+    "md5": "^2.3.0",
+    "minimist": "^1.2.8",
     "n3": "^1.16.4",
     "parse-link-header": "^2.0.0",
     "solid-bashlib": "^0.3.4",
