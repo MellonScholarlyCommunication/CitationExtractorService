@@ -7,6 +7,7 @@
 @prefix log:  <http://www.w3.org/2000/10/swap/log#> .
 @prefix list: <http://www.w3.org/2000/10/swap/list#> .
 @prefix ldp:  <http://www.w3.org/ns/ldp#> .
+@prefix sh:   <http://www.w3.org/ns/shacl#> .
 
 {
     # We need an Offer notification
@@ -30,7 +31,8 @@
 {
     # When the conditions above hold, the I want a policy executed
     # that sends out a LDN notification to the inbox
-    :MyAnswerPolicy pol:policy [
+    ex:MyAnswer pol:policy ex:MyAnswerPolicy .
+    ex:MyAnswerPolicy
         a fno:Execution ;
         fno:executes ex:sendNotification ;
         ex:to ?inbox ;
@@ -42,8 +44,7 @@
                 as:context   ?object ;
                 as:object    ?serviceResultUrl ;
                 as:target    ?actor 
-        ]
-    ] .
+        ] .
 
     ?serviceResultUrl a as:Document , ex:ServiceResult , ex:ParsedCitationDocument.
 } .
