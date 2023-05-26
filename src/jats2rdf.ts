@@ -228,7 +228,6 @@ function validURL(str: string) : boolean {
         // All is ok
     }
     else {
-            console.log(`>${str}<`);
         return false;
     }
 
