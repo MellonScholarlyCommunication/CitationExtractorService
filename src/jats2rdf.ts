@@ -224,7 +224,7 @@ async function mentions2rdf(mentions: string[], store: N3.Store) : Promise<void>
 function validURL(str: string) : boolean {
     let url;
    
-    if (str.match(/(http[A-Za-z0-9\-\._~:\/\?#[\]@!\$&'()*\+,;=%]+)/g)) {
+    if (str.match(/^(http[A-Za-z0-9\-\._~:\/\?#[\]@!\$&'()*\+,;=%]+)$/g)) {
         // All is ok
     }
     else {
