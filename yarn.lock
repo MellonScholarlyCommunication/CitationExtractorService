@@ -2879,13 +2879,13 @@ external-editor@^3.0.3:
     iconv-lite "^0.4.24"
     tmp "^0.0.33"
 
-eyereasoner@4.25.2:
-  version "4.25.2"
-  resolved "https://registry.yarnpkg.com/eyereasoner/-/eyereasoner-4.25.2.tgz#81ff9f557f5931dd4c1c04de03ff694bfaabfced"
-  integrity sha512-jsz4FpnEQnPxfJAXZIHwBzUSUM+0RRj6rfjCCZd5gEWHIh0bD7FaFkuwpoLH2a+fgyOYUmWw2NKYI5iliQl52w==
+eyereasoner@5.0.6:
+  version "5.0.6"
+  resolved "https://registry.yarnpkg.com/eyereasoner/-/eyereasoner-5.0.6.tgz#ed51acf29d5c8b2ae3a5311c4af02ec75228c94b"
+  integrity sha512-k6goyEAUnFul1G6QaGgNYIKuU4TlCdD7f4YJH+cQM38ebYg8HmqgG0I3B/x3tt+215YgR4yFJMCOr9NNG+UD4w==
   dependencies:
     n3 "^1.16.3"
-    swipl-wasm "3.4.0"
+    swipl-wasm "3.4.2"
 
 fast-deep-equal@^3.1.3:
   version "3.1.3"
@@ -3371,15 +3371,15 @@ keygrip@~1.1.0:
   dependencies:
     tsscmp "1.0.6"
 
-koreografeye@0.3.1:
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/koreografeye/-/koreografeye-0.3.1.tgz#191ed9967d67bc1e01d080cc7eaa73b1273bdaf3"
-  integrity sha512-UM0kLv/GlxbRGYuFm0KjTeD3jTZeN3gLzpINLviqJiwUDR2zSPSqz8jizRNwv5Xd8sylkwXJuiAlsfPc2TQxJw==
+koreografeye@0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/koreografeye/-/koreografeye-0.4.0.tgz#d942777f2dc1503864e0e231657b92876747ee74"
+  integrity sha512-VjPlPm5QDuV56Woc9xZYrJBiJOi4qrk5xYwnL8dtQfiTURYTioKSdmiGnU4/OAhFW5XAF+pu+I9Q/AgYlRkFiA==
   dependencies:
     "@comunica/query-sparql-rdfjs" "^2.5.1"
     commander "^9.4.1"
     componentsjs "^5.3.2"
-    eyereasoner "4.25.2"
+    eyereasoner "5.0.6"
     is-hidden-file "^1.1.2"
     jsonld "^8.1.0"
     log4js "^6.7.0"
@@ -4385,10 +4385,10 @@ supports-color@^7.1.0:
   dependencies:
     has-flag "^4.0.0"
 
-swipl-wasm@3.4.0:
-  version "3.4.0"
-  resolved "https://registry.yarnpkg.com/swipl-wasm/-/swipl-wasm-3.4.0.tgz#1e5215bc2e85516a48bba327b4ab9157bbd5cd92"
-  integrity sha512-asjNxaDaqvOSSgMSAw0N424rikmCJgUBxRIK6S77y4zTIYo6TRfXk57R9bqvG47PhELth9DOmKj1yFdWMYigtg==
+swipl-wasm@3.4.2:
+  version "3.4.2"
+  resolved "https://registry.yarnpkg.com/swipl-wasm/-/swipl-wasm-3.4.2.tgz#e9874487b93874b9d07675d24bf936ad4f6013ec"
+  integrity sha512-1LY786vnVu2M9oJjHkODX0HwkeXKEcAuhabx+gl9UwITGQmgtWtjmnBd91A5sBm9UhcVzclFKb4C+QbSbECG2A==
   dependencies:
     "@inrupt/universal-fetch" "^1.0.1"
     "@types/emscripten" "^1.39.6"

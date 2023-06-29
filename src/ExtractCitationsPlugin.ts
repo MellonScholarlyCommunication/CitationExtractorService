@@ -33,11 +33,7 @@ export class ExtractCitationsPlugin extends PolicyPlugin {
     public async execute (mainStore: N3.Store, _policyStore: N3.Store, policy: IPolicyType) : Promise<boolean> {
 
         return new Promise<boolean>( (resolve,_) => {
-            const origin = policy.origin;
-
-            this.logger.info(`extracting citations for ${origin}`);
-
-            const url = policy.args['http://example.org/url']?.value;
+            const url = policy.args['http://example.org/url'];
 
             if (url === undefined) {
                 this.logger.error(`no url in the policy`);
@@ -45,10 +41,10 @@ export class ExtractCitationsPlugin extends PolicyPlugin {
                 return;
             }
 
-            this.logger.info(`processing ${url}`);
+            this.logger.info(`processing ${url[0].value}`);
 
             let   resultData = '';
-            const citations = spawn(this.citation_parser, [url]);
+            const citations = spawn(this.citation_parser, [url[0].value]);
 
             citations.stdout.on('data', (data) => {
                 resultData += data;

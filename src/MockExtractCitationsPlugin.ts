@@ -32,13 +32,9 @@ export class MockExtractCitationsPlugin extends PolicyPlugin {
     /**
      * Required policy parameter ex:url (the location of the PDF).
      */
-    public async execute (mainStore: N3.Store, _policyStore: N3.Store, policy: IPolicyType) : Promise<boolean> {
+    public async execute (mainStore: N3.Store, _policyStore: N3.Store, _policy: IPolicyType) : Promise<boolean> {
 
         return new Promise<boolean>( (resolve,_) => {
-            const origin = policy.origin;
-
-            this.logger.info(`extracting citations for ${origin}`);
-
             const url = this.randomUrl();
 
             this.logger.info(`processing ${url}`);
