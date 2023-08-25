@@ -3371,10 +3371,10 @@ keygrip@~1.1.0:
   dependencies:
     tsscmp "1.0.6"
 
-koreografeye@0.4.0:
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/koreografeye/-/koreografeye-0.4.0.tgz#d942777f2dc1503864e0e231657b92876747ee74"
-  integrity sha512-VjPlPm5QDuV56Woc9xZYrJBiJOi4qrk5xYwnL8dtQfiTURYTioKSdmiGnU4/OAhFW5XAF+pu+I9Q/AgYlRkFiA==
+koreografeye@0.4.1:
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/koreografeye/-/koreografeye-0.4.1.tgz#7fb0bcde9e84006c4bc6e9f46fae101323b6e171"
+  integrity sha512-+KRQ2XU+tC9/4ZlBbv2JRdzdeoHI0KHgoNgvUhskIpioWdClMQvYz+++CojmI4ioCvLaHi5pGOR6jY+u+mTmow==
   dependencies:
     "@comunica/query-sparql-rdfjs" "^2.5.1"
     commander "^9.4.1"
