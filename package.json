@@ -50,7 +50,7 @@
   "dependencies": {
     "@xmldom/xmldom": "^0.8.7",
     "componentsjs": "^5.3.2",
-    "koreografeye": "0.4.5",
+    "koreografeye": "^0.4.5",
     "md5": "^2.3.0",
     "minimist": "^1.2.8",
     "n3": "^1.16.4",
@@ -58,6 +58,7 @@
     "solid-bashlib": "^0.3.4",
     "uuid": "^9.0.0",
     "xmldom": "^0.6.0",
-    "xpath": "^0.0.32"
+    "xpath": "^0.0.32",
+    "node-fetch": "2.6.6"
   }
 }
