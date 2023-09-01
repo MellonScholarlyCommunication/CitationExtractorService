@@ -54,7 +54,7 @@ async function fetchCitations(doi:string) : Promise<any[] | null> {
     const response = await fetch(`${OPENCITATION_BASE}/${doi}`);
 
     if (response.ok) {
-        return response.json();        
+        return await response.json();        
     }
     else {
         return null;
