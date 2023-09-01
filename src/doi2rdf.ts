@@ -50,7 +50,7 @@ async function store2str(store: N3.Store) : Promise<string> {
     });
 }
 
-async function fetchCitations(doi:string) : Promise<any[] | null> {
+async function fetchCitations(doi:string) : Promise<any | null> {
     const response = await fetch(`${OPENCITATION_BASE}/${doi}`);
 
     if (response.ok) {
