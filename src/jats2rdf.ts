@@ -118,9 +118,7 @@ async function parse_citations(doc : Document, store: N3.Store) : Promise<void> 
         const citationText = n1.textContent?.replace(/\n/g,'').replace(/ +/g,' ');
 
         if (citationText?.match(/.*http\S+.*/)) {
-            const citation = citationText.replace(/.*(http.*)/g,"$1")
-                              .replace(/ +/g,'')
-                              .replace(/\n/g,'')
+            const citation = citationText.replace(/.*(http\S+).*/g,"$1")
                               .replace(/\.$/,'');
             if (citation.length) {
                 citations.push(citation);

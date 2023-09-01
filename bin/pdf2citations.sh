@@ -1,13 +1,28 @@
 #!/bin/bash
 
+usage() { echo "usage: $0 [-d] url" 1>&2; exit 1; }
+
+DEBUG=0
+
+while getopts "d" o; do
+    case "${o}" in
+        d)
+            DEBUG=1
+            ;;
+        *)
+            usage
+            ;;
+    esac
+done
+shift $((OPTIND-1))
+
 CERMINE=lib/cermine-impl-1.13-jar-with-dependencies.jar
 TIMEOUT=30
 URL=$1
 MAXFILESIZE=4000000
 
 if [ "$URL" == "" ]; then
-  echo "usage: $0 url"
-  exit 1
+  usage
 fi
 
 function verbose {
@@ -15,7 +30,12 @@ function verbose {
   >&2 echo "${TIME} : $0 : $1"
 }
 
-WORK_DIR=`mktemp -d`
+if [ ${DEBUG} -eq 0]; then
+  WORK_DIR=`mktemp -d`
+else
+  WORK_DIR=/tmp/citationextractor
+  mkdir -p ${WORK_DIR}
+fi
 
 # check if tmp dir was created
 if [[ ! "$WORK_DIR" || ! -d "$WORK_DIR" ]]; then
@@ -32,7 +52,9 @@ function cleanup {
 }
 
 # register the cleanup function to be called on the EXIT signal
-trap cleanup EXIT
+if [ ${DEBUG} -eq 0 ]; then
+  trap cleanup EXIT
+fi
 
 # Main code ...
 
