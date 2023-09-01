@@ -19,7 +19,8 @@
     ?id a ex:CitationExtraction .
 
     # ...which contains a (PDF) object
-    ?id  as:object ?pdf .
+    ?id as:object ?object .
+    ?object as:url ?pdf .
 
     # ...check that it is pdf via the notification metadata
     # this is a temp solution due to a bug in the Biblio repository
