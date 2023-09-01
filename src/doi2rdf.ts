@@ -19,7 +19,8 @@ if (! doi ) {
 main();
 
 async function main() {
-    let citations = await fetchCitations(doi); 
+    let parsed_doi = doi.replace(/http(s)?:\/\/[^\/]+\//g,"");
+    let citations = await fetchCitations(parsed_doi); 
     
     if (! citations) 
         return;
