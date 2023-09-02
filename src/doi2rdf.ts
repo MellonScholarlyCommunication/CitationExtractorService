@@ -80,14 +80,14 @@ async function citations2rdf(citations: any[], store: N3.Store) : Promise<void> 
             store.addQuad(
                 namedNode(citationIdentifier),
                 namedNode(CITO + 'hasCitingEntity'),
-                namedNode('info:doi/' + citation['citing']),
+                namedNode('https://doi.org/' + citation['citing']),
                 defaultGraph()
             );
 
             store.addQuad(
                 namedNode(citationIdentifier),
                 namedNode(CITO + 'hasCitedEntity'),
-                namedNode('info:doi/' + citation['cited']),
+                namedNode('https://doi.org/' + citation['cited']),
                 defaultGraph()
             );
         });
