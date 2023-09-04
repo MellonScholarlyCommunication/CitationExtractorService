@@ -12,7 +12,7 @@ let argv  = minimist(process.argv.slice(2));
 let doi = argv['_'][0];
 
 if (! doi ) {
-    console.error('usage: doi2rdf.js file [url]');
+    console.error('usage: doi2rdf.js doi');
     process.exit(1);
 }
 
