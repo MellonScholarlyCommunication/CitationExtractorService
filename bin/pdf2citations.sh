@@ -30,7 +30,7 @@ function verbose {
   >&2 echo "${TIME} : $0 : $1"
 }
 
-if [ ${DEBUG} -eq 0]; then
+if [ ${DEBUG} -eq 0 ]; then
   WORK_DIR=`mktemp -d`
 else
   WORK_DIR=/tmp/citationextractor
